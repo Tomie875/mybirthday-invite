@@ -1,0 +1,158 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Birthday Invitation</title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: rgb(250, 218, 221);
+      font-family: 'Great Vibes', cursive;
+      color: #6a1b3a;
+    }
+
+    .section {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 100px 20px;
+      opacity: 0;
+      transform: translateY(50px);
+      transition: all 1s ease;
+    }
+
+    .section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .invitation {
+      background: rgba(255, 255, 255, 0.85);
+      padding: 50px;
+      border-radius: 20px;
+      border: 3px solid #f8bbd0;
+      max-width: 700px;
+      text-align: center;
+      box-shadow: 0 0 15px rgba(0,0,0,0.15);
+      position: relative;
+    }
+
+    .invitation h1 {
+      font-size: 3em;
+      margin-bottom: 20px;
+    }
+
+    .invitation p {
+      font-size: 1.6em;
+      margin: 20px 0;
+      line-height: 1.6;
+    }
+
+    .countdown {
+      font-size: 1.6em;
+      margin-top: 20px;
+      color: #a63654;
+    }
+
+    @media (max-width: 600px) {
+      .invitation {
+        padding: 30px;
+      }
+
+      .invitation h1 {
+        font-size: 2em;
+      }
+
+      .invitation p,
+      .countdown {
+        font-size: 1.2em;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Секция 1 -->
+  <div class="section" id="section1">
+    <div class="invitation">
+      <h1>You are invited</h1>
+      <p><strong>Date:</strong> 08/07/2025</p>
+      <p><strong>Location:</strong> Club “Status No.4 Room”</p>
+      <p>My dear ladies, I look forward to seeing you at my party</p>
+      <div class="countdown" id="countdown"></div>
+    </div>
+  </div>
+
+  <!-- Секция 2 -->
+  <div class="section" id="section2">
+    <div class="invitation">
+      <p>
+        An evening of grace and sparkle awaits. Let your elegance shine as we dance, laugh, and create unforgettable memories together.
+      </p>
+    </div>
+  </div>
+
+  <!-- Секция 3 -->
+  <div class="section" id="section3">
+    <div class="invitation">
+      <p>
+        The venue will shimmer with soft lights, romantic details, and the warmth of beautiful souls gathered together for a special celebration.
+      </p>
+    </div>
+  </div>
+
+  <!-- Секция 4 -->
+  <div class="section" id="section4">
+    <div class="invitation">
+      <p>
+        With love, from me to you. I can’t wait to see your lovely faces and celebrate a night full of magic, joy, and friendship.
+        <br><strong>— T</strong>
+      </p>
+    </div>
+  </div>
+
+  <script>
+    const sections = document.querySelectorAll('.section');
+    function revealOnScroll() {
+      for (let section of sections) {
+        const top = section.getBoundingClientRect().top;
+        if (top < window.innerHeight - 100) {
+          section.classList.add('visible');
+        }
+      }
+    }
+    window.addEventListener('scroll', revealOnScroll);
+    window.addEventListener('load', revealOnScroll);
+
+    const countdown = document.getElementById("countdown");
+    const eventDate = new Date("2025-07-08T00:00:00");
+
+    function updateCountdown() {
+      const now = new Date();
+      const diff = eventDate - now;
+
+      if (diff <= 0) {
+        countdown.innerText = "The celebration has begun!";
+        return;
+      }
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+
+      countdown.innerText = `Time left: ${days}d ${hours}h ${minutes}m ${seconds}s`;
+    }
+
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+  </script>
+</body>
+</html>
